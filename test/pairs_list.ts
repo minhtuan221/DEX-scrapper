@@ -1,5 +1,5 @@
 import { PairsProfile } from "./uniswap_v2/pair_profile";
-import * as config from "./config";
+import * as config from "../config";
 import * as token_address from "./uniswap_v2/token/address";
 
 

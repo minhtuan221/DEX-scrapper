@@ -5,7 +5,7 @@ const config = require("./config");
 const token_address = require("./src/adapter/uniswap_v2/address");
 const pool_addres_list = require("./src/adapter/uniswap_v3/address")
 
-async function main() {
+async function main(refresh_interval=3000) {
 
     let eth_dai = new PairsProfileV2("V2 ETH/DAI", config, token_address.weth, token_address.dai, '100000000000000000')
     let btc_dai = new PairsProfileV2("V2 BTC/DAI", config, token_address.wbtc, token_address.dai, '100000')
@@ -25,7 +25,7 @@ async function main() {
     pair_list.add(btc_usdc)
     pair_list.add(weth_usdt)
     pair_list.add(usdc_usdt)
-    pair_list.run_interval(3000)
+    pair_list.run_interval(refresh_interval)
   }
   
 main()
