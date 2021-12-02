@@ -81,3 +81,39 @@ async function main(refresh_interval=3000) {
   
 main()
 ```
+
+### Deploy on your own node
+
+
+Instead of using Infura, you can use your own provider by using your own node in the config. Note: The project is for scrapping data and doing research on data. So this guide for deploying node on window only
+
+First, you must get Go-Ethereum (*Official Go implementation of the Ethereum protocol-Geth*) on the installing website (https://geth.ethereum.org/docs/install-and-build/installing-geth) then download the version for your platform. The other way is directly cloning go-ethereum project in github (https://github.com/ethereum/go-ethereum)
+
+Second, save `Geth.exe` file (for window) into a disk with at least 200GB free space (SSD recommended). Then run the follow code to deploy your node:
+
+```bash
+geth --http --http.api personal,eth,net,web3 --http.corsdomain "*" --graphql
+```
+
+- `--http` option will expose you node at your `http:\\localhost:8545`. This will be very useful when you need other user or computer connect to your node to do data research. Note: Due to security concern, use this way in a private network or add an authentication layer
+- `--graphql` in case you want GraphQL
+  
+After that, you have a screen like this:
+
+![run Geth](./eth-node.PNG)
+
+Then connect to Geth console `geth attach http://localhost:8545` and `eth.syncing`. If the command return `false` then the syncing process is complete and all block is downloaded. If not, the result will be:
+
+![eth.syncing](./geth_sync.PNG)
+
+Third, change the `url` in `config.js` file before running the code as normal
+
+```node
+// const url = 'https://mainnet.infura.io/v3/<your project iD>'; => use with infura
+// const url = "\\\\.\\pipe\\geth.ipc";  => use if you need ipc connection only
+const url = 'http://localhost:8545';  // use with http
+
+const customHttpProvider = new ethers.getDefaultProvider(url);
+```
+
+Note: The syncing process will download about 100GB, and you must wait for 2-5 days to complete. If you does not wait and try to run the code, some error may occur such as `Error: call revert exception (method="factory()", ....`

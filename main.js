@@ -1,6 +1,7 @@
 const { PairsProfileV2 } = require("./src/adapter/uniswap_v2/pair_profile");
 const { PairProfileV3 } = require("./src/adapter/uniswap_v3/pair_profile")
 const {PairsList } = require("./src/service/pairs_table")
+console.log("\\\\.\\pipe\\geth.ipc")
 const config = require("./config");
 const token_address = require("./src/adapter/uniswap_v2/address");
 const pool_addres_list = require("./src/adapter/uniswap_v3/address")
